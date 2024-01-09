@@ -14,6 +14,7 @@ import {
 import { MdEdit } from 'react-icons/md';
 
 import ConfigApiClient from '../api/api.controller';
+import CircularProgress from '@mui/joy/CircularProgress';
 
 
 const configApiClient = new ConfigApiClient('https://telegram-backend-p155.onrender.com');
@@ -22,6 +23,7 @@ const Settings = () => {
   const [telegramBotKey, setTelegramBotKey] = useState('demo value');
   const [mapsApiKey, setMapsApiKey] = useState('demo value');
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isloading,setIsLoggedIn]=React.useState(true)
 
   useEffect(() => {
 
@@ -45,6 +47,7 @@ const Settings = () => {
       const resp = await configApiClient.getConfig('TELEGRAM_BOT_KEY');
       setTelegramBotKey(resp.key)
       console.log(usersResponse)
+      setIsLoggedIn(false)
     } catch (error) {
       console.error('An error occurred:', error.message);
     }
@@ -61,7 +64,8 @@ const Settings = () => {
   };
 
   return (
-    <Grid container justifyContent="center" alignItems="center" style={{ height: '100vh' }}>
+    isloading?(<CircularProgress/>):(
+      <Grid container justifyContent="center" alignItems="center" style={{ height: '100vh' }}>
       <Card style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '8px', minWidth: '300px' }}>
         <CardContent>
           <Typography variant="h4">Manage Keys</Typography>
@@ -106,6 +110,7 @@ const Settings = () => {
         </DialogContent>
       </Dialog>
     </Grid>
+    )
   );
 };
 

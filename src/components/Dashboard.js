@@ -14,6 +14,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import ConfigApiClient from '../api/api.controller';
 import BlockIcon from '@mui/icons-material/Block';
 import RestoreIcon from '@mui/icons-material/Restore';
+import CircularProgress from '@mui/joy/CircularProgress';
+
 
 const configApiClient = new ConfigApiClient('https://telegram-backend-p155.onrender.com');
 
@@ -26,6 +28,7 @@ const Demo = styled('div')(({ theme }) => ({
 export default function Dashboard() {
   const dense = false;
   const secondary = true;
+  const [isloading,setIsLoggedIn]=React.useState(true)
   const [users, setUsers] = React.useState([]);
 
   async function fetchData() {
@@ -33,6 +36,7 @@ export default function Dashboard() {
       const usersResponse = await configApiClient.getUsers();
       setUsers(usersResponse.users);
       console.log(usersResponse)
+      setIsLoggedIn(false)
     } catch (error) {
       console.error('An error occurred:', error.message);
     }
@@ -47,7 +51,8 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
+    isloading?(<CircularProgress/>):(
+      <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
       <FormGroup row>
 
       </FormGroup>
@@ -75,6 +80,7 @@ export default function Dashboard() {
 
                     <IconButton edge="end" aria-label="delete"
                       onClick={async () => {
+                        setIsLoggedIn(true)
                         await configApiClient.blockUser(user.chatId)
                         fetchData()
                       }
@@ -103,6 +109,7 @@ export default function Dashboard() {
                     secondaryAction={
                       <IconButton edge="end" aria-label="delete"
                         onClick={async () => {
+                          setIsLoggedIn(true)
                           await configApiClient.unblockUser(user.chatId)
                           fetchData()
                         }}
@@ -129,5 +136,6 @@ export default function Dashboard() {
         </Grid>
       </Grid>
     </Box>
+    )
   );
 }
