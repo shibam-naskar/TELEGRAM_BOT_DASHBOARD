@@ -16,7 +16,7 @@ import { MdEdit } from 'react-icons/md';
 import ConfigApiClient from '../api/api.controller';
 
 
-const configApiClient = new ConfigApiClient('https://example.com');
+const configApiClient = new ConfigApiClient('https://da054609-5f9f-4f8d-9560-065a5f4cdc93-00-28hyinnf7xypk.sisko.replit.dev');
 
 const Settings = () => {
   const [telegramBotKey, setTelegramBotKey] = useState('demo value');

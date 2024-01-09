@@ -15,7 +15,7 @@ import ConfigApiClient from '../api/api.controller';
 import BlockIcon from '@mui/icons-material/Block';
 import RestoreIcon from '@mui/icons-material/Restore';
 
-const configApiClient = new ConfigApiClient('https://example.com');
+const configApiClient = new ConfigApiClient('https://da054609-5f9f-4f8d-9560-065a5f4cdc93-00-28hyinnf7xypk.sisko.replit.dev');
 
 
 
